@@ -1,4 +1,3 @@
-import { Button } from "bootstrap";
 import "./App.css";
 import { toast } from "react-toastify";
 import { Route, Routes } from "react-router-dom";
