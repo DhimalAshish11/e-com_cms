@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../layout/Header";
 import Footer from "../../layout/Footer";
 import { Form } from "react-bootstrap";
@@ -6,6 +6,22 @@ import { Button } from "react-bootstrap";
 import CustomInput from "../../custom-input/CustomInput";
 
 const SignIn = () => {
+  const [form, setForm] = useState({});
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    console.log(form);
+  };
+
   const inputs = [
     {
       label: "Email",
@@ -28,12 +44,12 @@ const SignIn = () => {
     <div>
       <Header />
       <section className="main">
-        <Form className="m-5 p-5 border shadow-lg">
+        <Form onSubmit={handleOnSubmit} className="m-5 p-5 border shadow-lg">
           <h1>Welcome Admins Login Now</h1>
           <hr />
 
           {inputs.map((item, i) => (
-            <CustomInput key={i} {...item} />
+            <CustomInput key={i} {...item} onChange={handleOnChange} />
           ))}
 
           <div className="d-grid">
