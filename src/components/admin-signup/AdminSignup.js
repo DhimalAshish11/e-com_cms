@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import CustomInput from "../custom-input/CustomInput";
+import { toast } from "react-toastify";
+import { createNewAdminAction } from "../pages/adminAction";
 
 const AdminSignup = () => {
   const [form, setForm] = useState({});
@@ -15,9 +17,16 @@ const AdminSignup = () => {
     });
   };
 
-  const handleOnSubmit = async (e) => {
+  const handleOnSubmit = (e) => {
     e.preventDefault();
+    const { confirmPassword, ...rest } = form;
+
     console.log(form);
+    if (confirmPassword !== rest.password) {
+      return toast.error("Password do not match");
+    }
+    console.log(form);
+    createNewAdminAction(rest);
   };
   const inputs = [
     {
@@ -82,7 +91,7 @@ const AdminSignup = () => {
         ))}
 
         <div className="d-grid">
-          <Button variant="primary" type="submit">
+          <Button variant="dark" type="submit">
             Create New Account
           </Button>
         </div>

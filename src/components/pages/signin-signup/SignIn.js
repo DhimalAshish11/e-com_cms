@@ -53,7 +53,7 @@ const SignIn = () => {
           ))}
 
           <div className="d-grid">
-            <Button variant="primary" type="submit">
+            <Button variant="dark" type="submit">
               Login
             </Button>
           </div>
