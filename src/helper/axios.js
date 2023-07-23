@@ -28,3 +28,12 @@ export const postNewAdmin = (data) => {
   };
   return axiosProcesor(obj);
 };
+
+export const postNewAdminVerificationInfo = (data) => {
+  const obj = {
+    method: "post",
+    url: adminAPI + "/admin-verification",
+    obj: data,
+  };
+  return axiosProcesor(obj);
+};
