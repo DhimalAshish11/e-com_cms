@@ -1,56 +1,62 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { AiOutlineDashboard } from "react-icons/ai";
-import { MdProductionQuantityLimits } from "react-icons/md";
-import { PiContactlessPaymentDuotone } from "react-icons/pi";
+import {
+  AiFillDashboard,
+  AiFillCreditCard,
+  AiFillProfile,
+} from "react-icons/ai";
+import { BiCategoryAlt } from "react-icons/bi";
+import { PiVan } from "react-icons/pi";
+import { BsFillBoxFill } from "react-icons/bs";
+import { FaUsers, FaUserSecret } from "react-icons/fa";
+
 export const Sidebar = () => {
   return (
     <div className="side-bar bg-dark text-light p-3">
       <p className="mt-3 text-center">Admin Panel</p>
+
       <hr />
       <nav>
-        <ul className="list-unstyled side-nav">
+        <ul className="list-unstyled sid-nav">
           <li>
             <Link className="nav-link" to="/dashboard">
-              <AiOutlineDashboard className="fs-4" />
-              Dashboard
+              <AiFillDashboard className="fs-4" /> Dashboard
             </Link>
           </li>
           <li>
             <Link className="nav-link" to="/category">
-              <PiContactlessPaymentDuotone />
-              Category
+              <BiCategoryAlt className="fs-4" /> Category
             </Link>
           </li>
           <li>
             <Link className="nav-link" to="/product">
-              <MdProductionQuantityLimits />
-              Product
+              <BsFillBoxFill className="fs-4" /> Product
             </Link>
           </li>
           <li>
             <Link className="nav-link" to="/payment-option">
-              <PiContactlessPaymentDuotone />
-              Payment Option
+              <AiFillCreditCard className="fs-4" /> Payment Option
             </Link>
           </li>
           <li>
             <Link className="nav-link" to="/order">
-              <PiContactlessPaymentDuotone />
-              Order
+              <PiVan className="fs-4" /> Oreder
             </Link>
+          </li>
+          <li>
             <Link className="nav-link" to="/customer">
-              <PiContactlessPaymentDuotone />
-              Customer
+              <FaUsers className="fs-4" /> Customer
             </Link>
-            <Link className="nav-link" to="/admin-User">
-              <PiContactlessPaymentDuotone />
-              Admin-User
+          </li>
+          <li>
+            <Link className="nav-link" to="/admin-user">
+              <FaUserSecret className="fs-4" /> Admin User
             </Link>
-            <hr />
+          </li>
+          <hr />
+          <li>
             <Link className="nav-link" to="/profile">
-              <PiContactlessPaymentDuotone />
-              Profile
+              <AiFillProfile className="fs-4" /> Profile
             </Link>
           </li>
         </ul>

@@ -2,11 +2,7 @@ import React from "react";
 import AdminLayout from "../../layout/AdminLayout";
 
 export const Dashboard = () => {
-  return (
-    <div>
-      <AdminLayout title={Dashboard}> Dashboard</AdminLayout>
-    </div>
-  );
+  return <AdminLayout title="Dashboard">Dashboard</AdminLayout>;
 };
 
 export default Dashboard;

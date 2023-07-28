@@ -15,7 +15,6 @@
 .admin-layout .main {
   margin-left: 230px;
   width: calc(100vw - 230px);
-  min-height: 73vh;
 }
 
 .page-content {

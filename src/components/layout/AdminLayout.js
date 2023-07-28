@@ -15,10 +15,8 @@ export const AdminLayout = ({ children, title }) => {
             <h3>{title}</h3>
             <hr />
           </div>
-
-          <div className="page-content"> {children}</div>
+          <div className="page-content">{children}</div>
         </Container>
-
         <Footer />
       </main>
     </div>

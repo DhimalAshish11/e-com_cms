@@ -17,19 +17,20 @@ function App() {
     <div className="">
       <Routes>
         <Route path="/" element={<SignIn />} />
-        <Route path="/new-admin" element={<SignUp />} />
+
         <Route path="admin-verification" element={<AdminVerification />} />
-        <Route path="/dashboard" element={<Dashboard />} />
 
         {/*Privaate Route*/}
-        <Route path="new-admin" element={<SignUp />} />
+
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="category" element={<Category />} />
         <Route path="product" element={<Product />} />
         <Route path="payment-option" element={<Payment />} />
         <Route path="order" element={<Order />} />
-        <Route path="customer" element={<Customer />} />
         <Route path="admin-user" element={<AdminUser />} />
+        <Route path="new-admin" element={<SignUp />} />
+        <Route path="customer" element={<Customer />} />
+
         <Route path="profile" element={<Dashboard />} />
       </Routes>
       <ToastContainer />
