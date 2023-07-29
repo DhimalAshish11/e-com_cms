@@ -1,22 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  cats: [],
+  modalShow: false,
 };
 
-const catSlice = createSlice({
-  name: "cat",
+const systemSlice = createSlice({
+  name: "system",
   initialState,
   reducers: {
-    setCats: (state, { payload }) => {
-      if (state.cats.length === 0 && payload.length === 0) {
-        return;
-      }
-      state.cats = payload;
+    setModelShow: (state, { payload }) => {
+      state.modalShow = payload;
     },
   },
 });
-const { reducer, actions } = catSlice;
-export const { setCats } = actions;
+const { reducer, actions } = systemSlice;
+export const { setModelShow } = actions;
 export default reducer;
-s;

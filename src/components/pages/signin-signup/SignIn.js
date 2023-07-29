@@ -4,6 +4,8 @@ import Footer from "../../layout/Footer";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import CustomInput from "../../custom-input/CustomInput";
+import { Link } from "react-router-dom";
+import { SignInAdminAction } from "../adminAction";
 
 const SignIn = () => {
   const [form, setForm] = useState({});
@@ -19,7 +21,7 @@ const SignIn = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(form);
+    SignInAdminAction(form);
   };
 
   const inputs = [
@@ -36,7 +38,6 @@ const SignIn = () => {
       required: true,
       placeholder: "******",
       type: "password",
-      minLength: "6",
     },
   ];
 
@@ -45,7 +46,7 @@ const SignIn = () => {
       <Header />
       <section className="main">
         <Form onSubmit={handleOnSubmit} className="m-5 p-5 border shadow-lg">
-          <h1>Welcome Admins Login Now</h1>
+          <h1>Welcome Back</h1>
           <hr />
 
           {inputs.map((item, i) => (
@@ -54,9 +55,12 @@ const SignIn = () => {
 
           <div className="d-grid">
             <Button variant="dark" type="submit">
-              Login
+              Sign In
             </Button>
           </div>
+          <p className="mt-2 text-end">
+            Forgot Password? <Link to="ottp">Reset</Link> now
+          </p>
         </Form>
       </section>
       <Footer />
