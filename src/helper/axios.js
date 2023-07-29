@@ -2,6 +2,7 @@ import axios from "axios";
 
 const rootAPI = process.env.REACT_APP_ROOTAPI;
 const adminAPI = rootAPI + "/admin";
+const catAPI = rootAPI + "/category";
 
 const axiosProcesor = async ({ method, url, obj }) => {
   try {
@@ -34,6 +35,40 @@ export const postNewAdminVerificationInfo = (data) => {
     method: "post",
     url: adminAPI + "/admin-verification",
     obj: data,
+  };
+  return axiosProcesor(obj);
+};
+
+export const postCategory = (data) => {
+  const obj = {
+    method: "post",
+    url: catAPI,
+    obj: data,
+  };
+  return axiosProcesor(obj);
+};
+
+export const getCategory = () => {
+  const obj = {
+    method: "get",
+    url: catAPI,
+  };
+  return axiosProcesor(obj);
+};
+
+export const updateCategory = (data) => {
+  const obj = {
+    method: "put",
+    url: catAPI,
+    obj: data,
+  };
+  return axiosProcesor(obj);
+};
+
+export const deleteCategory = (_id) => {
+  const obj = {
+    method: "delete",
+    url: catAPI + "/" + _id,
   };
   return axiosProcesor(obj);
 };

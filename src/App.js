@@ -11,8 +11,15 @@ import Payment from "./components/pages/payment-option/Payment";
 import Order from "./components/pages/order/Order";
 import Customer from "./components/pages/customer/Customer";
 import AdminUser from "./components/pages/admin-user/AdminUser";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getCategoryAction } from "./components/categories/CategoryAction";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCategoryAction());
+  }, [dispatch]);
   return (
     <div className="">
       <Routes>
