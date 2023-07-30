@@ -7,7 +7,11 @@ import Sidebar from "../sidebar/Sidebar";
 export const AdminLayout = ({ children, title }) => {
   return (
     <div className="admin-layout">
-      <Sidebar />
+      <div className="side-bar bg-dark text-light">
+        {" "}
+        <Sidebar />
+      </div>
+
       <main className="main">
         <Header />
         <Container>

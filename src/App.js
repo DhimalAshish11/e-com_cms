@@ -14,6 +14,7 @@ import AdminUser from "./components/pages/admin-user/AdminUser";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getCategoryAction } from "./components/categories/CategoryAction";
+import PrivateRoute from "./components/private/PrivateRoute";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,16 +30,79 @@ function App() {
 
         {/*Privaate Route*/}
 
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="category" element={<Category />} />
-        <Route path="product" element={<Product />} />
-        <Route path="payment-option" element={<Payment />} />
-        <Route path="order" element={<Order />} />
-        <Route path="admin-user" element={<AdminUser />} />
-        <Route path="new-admin" element={<SignUp />} />
-        <Route path="customer" element={<Customer />} />
+        <Route
+          path="dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="category"
+          element={
+            <PrivateRoute>
+              <Category />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="product"
+          element={
+            <PrivateRoute>
+              <Product />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="payment-option"
+          element={
+            <PrivateRoute>
+              <Payment />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="order"
+          element={
+            <PrivateRoute>
+              <Order />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="admin-user"
+          element={
+            <PrivateRoute>
+              <AdminUser />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="new-admin"
+          element={
+            <PrivateRoute>
+              <SignUp />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="customer"
+          element={
+            <PrivateRoute>
+              <Customer />
+            </PrivateRoute>
+          }
+        />
 
-        <Route path="profile" element={<Dashboard />} />
+        <Route
+          path="profile"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
       </Routes>
       <ToastContainer />
     </div>

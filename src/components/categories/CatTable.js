@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { EditCatForm } from "./EditCatForm";
 import { Button, Form, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { CustomModal } from "../customModal/CustomModal";
 import { setModelShow } from "../../system/systemSlice";
+import { getCategoryAction } from "./CategoryAction";
 
 const CatTable = () => {
   const dispatch = useDispatch();
   const [selectedCat, setSelectedCat] = useState({});
   const { cats } = useSelector((state) => state.categoryInfo);
+  useEffect(() => {
+    dispatch(getCategoryAction());
+  }, [dispatch]);
 
   const handleOnEdit = (obj) => {
     setSelectedCat(obj);

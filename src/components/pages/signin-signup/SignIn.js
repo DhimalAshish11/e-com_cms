@@ -1,14 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../layout/Header";
 import Footer from "../../layout/Footer";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import CustomInput from "../../custom-input/CustomInput";
-import { Link } from "react-router-dom";
-import { SignInAdminAction } from "../adminAction";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { SignInAdminAction, autoLogin } from "../adminAction";
+import { useDispatch, useSelector } from "react-redux";
 
 const SignIn = () => {
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [form, setForm] = useState({});
+
+  const { admin } = useSelector((state) => state.adminInfo);
+
+  const pathTo = location.state?.from?.location?.pathname || "/dashboard";
+
+  useEffect(() => {
+    admin?._id && navigate(pathTo);
+    dispatch(autoLogin());
+  }, [admin, navigate, dispatch, pathTo]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -21,7 +34,7 @@ const SignIn = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    SignInAdminAction(form);
+    dispatch(SignInAdminAction(form));
   };
 
   const inputs = [
