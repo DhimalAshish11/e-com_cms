@@ -18,7 +18,7 @@
 }
 
 .page-content {
-  height: 84vh;
+  min-height: 84vh;
 }
 
 .side-nav li {

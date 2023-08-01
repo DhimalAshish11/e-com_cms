@@ -1,4 +1,9 @@
-import { postNewAdmin, signInAdmin, getAdminInfo } from "../../helper/axios";
+import {
+  postNewAdmin,
+  signInAdmin,
+  getAdminInfo,
+  getNewRefreshJWT,
+} from "../../helper/axios";
 import { toast } from "react-toastify";
 import { setAdmin } from "./signin-signup/adminSlice";
 
@@ -30,7 +35,7 @@ export const SignInAdminAction = (obj) => async (dispatch) => {
   dispatch(getAdminProfileAction());
 };
 
-export const getAdminProfileAction = async (dispatch) => {
+export const getAdminProfileAction = () => async (dispatch) => {
   const { status, user } = await getAdminInfo();
 
   if (status === "success") {
@@ -38,7 +43,7 @@ export const getAdminProfileAction = async (dispatch) => {
   }
 };
 
-export const autoLogin = () => (dispatch) => {
+export const autoLogin = () => async (dispatch) => {
   const accessJWT = sessionStorage.getItem("accessJWT");
   if (accessJWT) {
     return dispatch(getAdminProfileAction());
@@ -47,5 +52,13 @@ export const autoLogin = () => (dispatch) => {
   const refreshJWT = localStorage.getItem("refreshJWT");
 
   if (refreshJWT) {
+    // request new accessJWT from server and all getAdminProfile
+
+    const { accessJWT } = await getNewRefreshJWT();
+
+    if (accessJWT) {
+      sessionStorage.setItem("accessJWT", accessJWT);
+      dispatch(getAdminProfileAction());
+    }
   }
 };

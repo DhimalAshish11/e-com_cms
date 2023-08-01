@@ -32,7 +32,7 @@ const SignIn = () => {
     });
   };
 
-  const handleOnSubmit = async (e) => {
+  const handleOnSubmit = (e) => {
     e.preventDefault();
     dispatch(SignInAdminAction(form));
   };

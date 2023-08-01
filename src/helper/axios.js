@@ -45,7 +45,6 @@ export const signInAdmin = (data) => {
     method: "post",
     url: adminAPI + "/sign-in",
     obj: data,
-    isPrivate: true,
   };
   return axiosProcesor(obj);
 };
@@ -100,6 +99,16 @@ export const deleteCategory = (_id) => {
   const obj = {
     method: "delete",
     url: catAPI + "/" + _id,
+  };
+  return axiosProcesor(obj);
+};
+
+export const getNewRefreshJWT = () => {
+  const obj = {
+    method: "get",
+    url: adminAPI + "/get-accessjwt",
+    isPrivate: true,
+    refreshToken: true,
   };
   return axiosProcesor(obj);
 };

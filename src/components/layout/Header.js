@@ -4,6 +4,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
 const Header = () => {
+  const handleOnLogOut = () => {};
+
   return (
     <Navbar expand="md" variant="dark" className="bg-dark">
       <Container>
@@ -13,7 +15,7 @@ const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Link to="/dashboard" className="nav-link">
+            <Link to="dashboard" className="nav-link">
               Dashboard
             </Link>
             <Link to="/" className="nav-link">
