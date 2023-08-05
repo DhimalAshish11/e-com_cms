@@ -8,26 +8,42 @@ const getAccessJWT = () => {
   return sessionStorage.getItem("accessJWT");
 };
 
-const axiosProcesor = async ({ method, url, obj, isPrivate }) => {
-  const header = {
-    Authorization: isPrivate ? getAccessJWT() : null,
+const getRefreshJWT = () => {
+  return localStorage.getItem("refreshJWT");
+};
+
+const axiosProcesor = async ({ method, url, obj, isPrivate, refreshToken }) => {
+  const token = refreshToken ? getRefreshJWT() : getAccessJWT();
+
+  const headers = {
+    Authorization: isPrivate ? token : null,
   };
-  console.log(header);
+  console.log(headers);
 
   try {
     const { data } = await axios({
       method,
       url,
       data: obj,
-      header,
+      headers,
     });
     return data;
   } catch (error) {
     return {
       status: "error",
-      message: error.message,
+      message: error.response ? error?.response?.data?.message : error.message,
     };
   }
+};
+
+/////getadmin
+export const getAdminInfo = () => {
+  const obj = {
+    method: "get",
+    url: adminAPI,
+    isPrivate: true,
+  };
+  return axiosProcesor(obj);
 };
 
 //adminapi
@@ -45,16 +61,6 @@ export const signInAdmin = (data) => {
     method: "post",
     url: adminAPI + "/sign-in",
     obj: data,
-  };
-  return axiosProcesor(obj);
-};
-
-/////getadmin
-export const getAdminInfo = () => {
-  const obj = {
-    method: "get",
-    url: adminAPI,
-    isPrivate: true,
   };
   return axiosProcesor(obj);
 };
@@ -109,6 +115,19 @@ export const getNewRefreshJWT = () => {
     url: adminAPI + "/get-accessjwt",
     isPrivate: true,
     refreshToken: true,
+  };
+  return axiosProcesor(obj);
+};
+
+export const logoutAdmin = (_id) => {
+  const obj = {
+    method: "post",
+    url: adminAPI + "/logout",
+    obj: {
+      _id,
+      accessJWT: getAccessJWT(),
+      refreshJWT: getRefreshJWT(),
+    },
   };
   return axiosProcesor(obj);
 };
