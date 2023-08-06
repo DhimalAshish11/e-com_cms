@@ -21,11 +21,10 @@ const AdminSignup = () => {
     e.preventDefault();
     const { confirmPassword, ...rest } = form;
 
-    console.log(form);
     if (confirmPassword !== rest.password) {
       return toast.error("Password do not match");
     }
-    console.log(form);
+
     createNewAdminAction(rest);
   };
   const inputs = [

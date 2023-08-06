@@ -24,7 +24,7 @@ export const SignInAdminAction = (obj) => async (dispatch) => {
     pending: "Please Wait...",
   });
   const { status, message, token } = await pendingResp;
-  console.log(token);
+
   toast[status](message);
 
   if (status === "success") {

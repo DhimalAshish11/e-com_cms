@@ -10,10 +10,7 @@ export const NewCatForm = () => {
 
   const handleOnAddCat = () => {
     const { value } = nameRef.current;
-    const obj = {
-      title: value,
-    };
-    dispatch(postNewCatAction(obj));
+    value && dispatch(postNewCatAction({ title: value }));
   };
 
   return (

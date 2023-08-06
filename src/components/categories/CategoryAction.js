@@ -18,7 +18,7 @@ export const postNewCatAction = (obj) => async (dispatch) => {
 
 export const getCategoryAction = () => async (dispatch) => {
   const { status, message, result } = await getCategory();
-  toast[status](message);
+  /*   toast[status](message); */
 
   if (status == "success") {
     dispatch(setCats(result));

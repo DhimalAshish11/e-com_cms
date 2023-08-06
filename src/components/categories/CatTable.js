@@ -27,9 +27,9 @@ const CatTable = () => {
       </CustomModal>
 
       <div className="d-flex justify-content-between mt-5">
-        <div>30 Categories Found</div>
+        <div>10 Categories Found</div>
         <div>
-          <Form.Control placeholder="Serach by name ..." />
+          <Form.Control placeholder="Search by name ..." />
         </div>
       </div>
       <Table striped bordered hover className="mt-2 ">

@@ -3,6 +3,7 @@ import axios from "axios";
 const rootAPI = process.env.REACT_APP_ROOTAPI;
 const adminAPI = rootAPI + "/admin";
 const catAPI = rootAPI + "/category";
+const payAPI = rootAPI + "/payment";
 
 const getAccessJWT = () => {
   return sessionStorage.getItem("accessJWT");
@@ -18,7 +19,6 @@ const axiosProcesor = async ({ method, url, obj, isPrivate, refreshToken }) => {
   const headers = {
     Authorization: isPrivate ? token : null,
   };
-  console.log(headers);
 
   try {
     const { data } = await axios({
@@ -79,6 +79,7 @@ export const postCategory = (data) => {
     method: "post",
     url: catAPI,
     obj: data,
+    isPrivate: true,
   };
   return axiosProcesor(obj);
 };
@@ -97,6 +98,7 @@ export const updateCategory = (data) => {
     method: "put",
     url: catAPI,
     obj: data,
+    isPrivate: true,
   };
   return axiosProcesor(obj);
 };
@@ -105,6 +107,7 @@ export const deleteCategory = (_id) => {
   const obj = {
     method: "delete",
     url: catAPI + "/" + _id,
+    isPrivate: true,
   };
   return axiosProcesor(obj);
 };
@@ -128,6 +131,25 @@ export const logoutAdmin = (_id) => {
       accessJWT: getAccessJWT(),
       refreshJWT: getRefreshJWT(),
     },
+  };
+  return axiosProcesor(obj);
+};
+
+export const postPayment = (data) => {
+  const obj = {
+    method: "post",
+    url: payAPI,
+    obj: data,
+    isPrivate: true,
+  };
+  return axiosProcesor(obj);
+};
+
+export const getPayment = () => {
+  const obj = {
+    method: "get",
+    url: payAPI,
+    isPrivate: true,
   };
   return axiosProcesor(obj);
 };

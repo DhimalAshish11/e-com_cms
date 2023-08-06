@@ -22,7 +22,6 @@ export const EditCatForm = ({ cat }) => {
 
   const handleOnChange = (e) => {
     let { name, value, checked } = e.target;
-    console.log(name, value, checked);
 
     if (name === "status") {
       value = checked ? "active" : "inactive";

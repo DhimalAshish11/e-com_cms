@@ -33,15 +33,20 @@ const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Link to="dashboard" className="nav-link">
-              Dashboard
-            </Link>
-            <Link to="/" className="nav-link">
-              Sign In
-            </Link>
-            <Link to="#!" className="nav-link" onClick={handleOnLogout}>
-              Sign Out
-            </Link>
+            {admin?._id ? (
+              <>
+                <Link to="/dashboard" className="nav-link">
+                  Dashboard
+                </Link>
+                <Link to="#!" className="nav-link" onClick={handleOnLogout}>
+                  Sign Out
+                </Link>
+              </>
+            ) : (
+              <Link to="/" className="nav-link">
+                Sign In
+              </Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
