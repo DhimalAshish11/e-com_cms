@@ -153,3 +153,22 @@ export const getPayment = () => {
   };
   return axiosProcesor(obj);
 };
+
+export const updateNewPayment = (data) => {
+  const obj = {
+    method: "put",
+    url: payAPI,
+    isPrivate: true,
+    obj: data,
+  };
+  return axiosProcesor(obj);
+};
+
+export const deletePayment = (_id) => {
+  const obj = {
+    method: "delete",
+    url: payAPI + "/" + _id,
+    isPrivate: true,
+  };
+  return axiosProcesor(obj);
+};

@@ -1,10 +1,12 @@
 import { toast } from "react-toastify";
-import { getPayment, postPayment } from "../../helper/axios";
-import { setPayments } from "../pages/payment-option/PaymentSlice";
 import {
-  deletePaymentById,
-  updatePaymentById,
-} from "../../../src/model/payment/PaymentModel";
+  deletePayment,
+  getPayment,
+  postPayment,
+  updateNewPayment,
+} from "../../helper/axios";
+import { setPayments } from "../pages/payment-option/PaymentSlice";
+
 import { setModelShow } from "../../system/systemSlice";
 
 export const postNewPaymentAction = (obj) => async (dispatch) => {
@@ -26,7 +28,7 @@ export const getPaymentAction = () => async (dispatch) => {
 };
 
 export const updatePaymentAction = (data) => async (dispatch) => {
-  const pending = updatePaymentById(data);
+  const pending = updateNewPayment(data);
 
   toast.promise(pending, {
     pending: "Please wait...",
@@ -40,7 +42,7 @@ export const updatePaymentAction = (data) => async (dispatch) => {
 };
 
 export const deletePaymentAction = (_id) => async (dispatch) => {
-  const pending = deletePaymentById(_id);
+  const pending = deletePayment(_id);
 
   toast.promise(pending, {
     pending: "Please wait...",

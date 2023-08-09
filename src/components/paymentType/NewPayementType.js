@@ -46,10 +46,10 @@ export const NewPaymentType = () => {
 
             <Form.Select name="status" onChange={handleOnChange} required>
               <option value="">---Select One---</option>
-              <option value="" selected={form.status === "active"}>
+              <option value="active" selected={form.status === "active"}>
                 Active
               </option>
-              <option value="" selected={form.status === "inactive"}>
+              <option value="inactive" selected={form.status === "inactive"}>
                 Inactive
               </option>
             </Form.Select>
