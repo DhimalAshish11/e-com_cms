@@ -29,6 +29,20 @@ const axiosProcesor = async ({ method, url, obj, isPrivate, refreshToken }) => {
     });
     return data;
   } catch (error) {
+    if (
+      error?.response?.status === 403 &&
+      error?.response?.data?.message === "jwt expired"
+    ) {
+      //1. get new accessJWt
+      const { status, accessJWT } = await getNewAccessJWT();
+      if (status === "success" && accessJWT) {
+        sessionStorage.setItem("accessJWT", accessJWT);
+      }
+
+      //2. continue the request
+
+      return axiosProcesor({ method, url, obj, isPrivate, refreshToken });
+    }
     return {
       status: "error",
       message: error.response ? error?.response?.data?.message : error.message,
@@ -112,7 +126,7 @@ export const deleteCategory = (_id) => {
   return axiosProcesor(obj);
 };
 
-export const getNewRefreshJWT = () => {
+export const getNewAccessJWT = () => {
   const obj = {
     method: "get",
     url: adminAPI + "/get-accessjwt",

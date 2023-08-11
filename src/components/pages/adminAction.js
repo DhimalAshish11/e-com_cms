@@ -3,6 +3,7 @@ import {
   signInAdmin,
   getAdminInfo,
   getNewRefreshJWT,
+  getNewAccessJWT,
 } from "../../helper/axios";
 import { toast } from "react-toastify";
 import { setAdmin } from "./signin-signup/adminSlice";
@@ -54,7 +55,7 @@ export const autoLogin = () => async (dispatch) => {
   if (refreshJWT) {
     // request new accessJWT from server and all getAdminProfile
 
-    const { accessJWT } = await getNewRefreshJWT();
+    const { accessJWT } = await getNewAccessJWT();
 
     if (accessJWT) {
       sessionStorage.setItem("accessJWT", accessJWT);
