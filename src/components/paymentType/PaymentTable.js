@@ -4,16 +4,17 @@ import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
 
 import { CustomModal } from "../customModal/CustomModal";
+import { setModelShow } from "../../system/systemSlice";
 
 import { getPaymentAction } from "./PaymentAction";
-import { setModelShow } from "../../system/systemSlice";
+import { EditPaymentForm } from "./EditPaymentForm";
 
 export const PaymentTable = () => {
   const dispatch = useDispatch();
 
   const [selectedPO, setSelectedPO] = useState({});
 
-  const { payment } = useSelector((state) => state.payInfo);
+  const { payments } = useSelector((state) => state.payInfo);
 
   useEffect(() => {
     dispatch(getPaymentAction());
@@ -25,9 +26,11 @@ export const PaymentTable = () => {
   };
   return (
     <>
-      <CustomModal title="Edit Payment Option"></CustomModal>
+      <CustomModal title="Edit Payment Option">
+        <EditPaymentForm po={selectedPO} />
+      </CustomModal>
       <div className="d-flex justify-content-between mt-5">
-        <div>{payment?.length} Payment options Found</div>
+        <div>{payments?.length} Payment options Found</div>
         <div>
           <Form.Control placeholder="Serach by name ..." />
         </div>
@@ -44,35 +47,37 @@ export const PaymentTable = () => {
           </tr>
         </thead>
         <tbody>
-          {payment?.map(({ _id, status, title, description, createdAt }, i) => (
-            <tr key={_id}>
-              <td>{i + 1}</td>
-              <td>
-                <span
-                  className={
-                    status === "active"
-                      ? "bg-success p-2 rounded"
-                      : "bg-danger p-2 rounded"
-                  }
-                >
-                  {status}
-                </span>
-              </td>
-              <td> {title}</td>
-              <td>{description}</td>
-              <td>{createdAt.slice(0, 10)}</td>
-              <td>
-                <Button
-                  variant="danger"
-                  onClick={() =>
-                    handleOnEdit({ _id, status, title, description })
-                  }
-                >
-                  Edit
-                </Button>
-              </td>
-            </tr>
-          ))}
+          {payments?.map(
+            ({ _id, status, title, description, createdAt }, i) => (
+              <tr key={_id}>
+                <td>{i + 1}</td>
+                <td>
+                  <span
+                    className={
+                      status === "active"
+                        ? "bg-success p-2 rounded"
+                        : "bg-danger p-2 rounded"
+                    }
+                  >
+                    {status}
+                  </span>
+                </td>
+                <td> {title}</td>
+                <td>{description}</td>
+                <td>{createdAt.slice(0, 10)}</td>
+                <td>
+                  <Button
+                    variant="danger"
+                    onClick={() =>
+                      handleOnEdit({ _id, status, title, description })
+                    }
+                  >
+                    Edit
+                  </Button>
+                </td>
+              </tr>
+            )
+          )}
         </tbody>
       </Table>
     </>
