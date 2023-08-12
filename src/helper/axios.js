@@ -4,6 +4,7 @@ const rootAPI = process.env.REACT_APP_ROOTAPI;
 const adminAPI = rootAPI + "/admin";
 const catAPI = rootAPI + "/category";
 const payAPI = rootAPI + "/payment";
+const productAPI = rootAPI + "/product";
 
 const getAccessJWT = () => {
   return sessionStorage.getItem("accessJWT");
@@ -182,6 +183,34 @@ export const deletePayment = (_id) => {
   const obj = {
     method: "delete",
     url: payAPI + "/" + _id,
+    isPrivate: true,
+  };
+  return axiosProcesor(obj);
+};
+
+export const postNewProduct = (data) => {
+  const obj = {
+    method: "post",
+    url: productAPI,
+    obj: data,
+    isPrivate: true,
+  };
+  return axiosProcesor(obj);
+};
+
+export const getNewProduct = () => {
+  const obj = {
+    method: "get",
+    url: productAPI,
+    isPrivate: true,
+  };
+  return axiosProcesor(obj);
+};
+
+export const deleteProduct = (_id) => {
+  const obj = {
+    method: "delete",
+    url: productAPI + "/" + _id,
     isPrivate: true,
   };
   return axiosProcesor(obj);

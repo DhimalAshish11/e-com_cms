@@ -15,6 +15,8 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getCategoryAction } from "./components/categories/CategoryAction";
 import PrivateRoute from "./components/private/PrivateRoute";
+import NewProduct from "./components/pages/product/NewProduct";
+import EditProduct from "./components/pages/product/EditProduct";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,6 +56,25 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        <Route
+          path="new-product"
+          element={
+            <PrivateRoute>
+              <NewProduct />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="product/edit/:_id"
+          element={
+            <PrivateRoute>
+              <EditProduct />
+            </PrivateRoute>
+          }
+        />
+
         <Route
           path="payment-option"
           element={
