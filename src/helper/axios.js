@@ -198,10 +198,10 @@ export const postNewProduct = (data) => {
   return axiosProcesor(obj);
 };
 
-export const getNewProduct = () => {
+export const getNewProduct = (_id) => {
   const obj = {
     method: "get",
-    url: productAPI,
+    url: _id ? productAPI + "/" + _id : productAPI,
     isPrivate: true,
   };
   return axiosProcesor(obj);

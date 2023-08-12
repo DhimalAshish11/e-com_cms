@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 export const Product = () => {
   return (
     <div>
-      <AdminLayout title={Product}>
+      <AdminLayout title="Product">
         <div className="text-end">
           <Link to="/new-product">
             <Button variant="primary">+ Add New Product</Button>

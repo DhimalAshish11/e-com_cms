@@ -1,20 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminLayout from "../../layout/AdminLayout";
 import { Button, Form } from "react-bootstrap";
 import CustomInput from "../../custom-input/CustomInput";
 import { useDispatch } from "react-redux";
 import { postNewProductAction } from "./ProductAction";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import SelectCategory from "../../categories/SelectCategory";
+import { getNewProduct } from "../../../helper/axios";
 const initialState = {
   status: "inactive",
 };
 
 const EditProduct = () => {
+  const { _id } = useParams();
+
   const [form, setForm] = useState(initialState);
   const [imgs, setImgs] = useState([]);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    // (async () => {
+    //   const { products } = await getProducts(_id);
+    //   products?._id && setForm(products);
+    // })();
+
+    getSelectedProduct();
+  }, []);
+
+  const getSelectedProduct = async () => {
+    const { products } = await getNewProduct(_id);
+    products?._id && setForm(products);
+  };
+
   const inputs = [
     {
       name: "name",
@@ -62,7 +80,7 @@ const EditProduct = () => {
     },
 
     {
-      name: "salesEndtDate",
+      name: "salesEndDate",
       label: "Sales End Date",
       type: "Date",
     },
@@ -92,8 +110,8 @@ const EditProduct = () => {
   };
 
   const handleOnAttached = (e) => {
-    const { file } = e.target;
-    setImgs(file);
+    const { files } = e.target;
+    setImgs(files);
   };
 
   const handleOnSubmit = (e) => {
@@ -111,13 +129,11 @@ const EditProduct = () => {
       });
     }
 
-    return;
-
-    dispatch(postEditProductAction(form));
+    dispatch(postNewProductAction(formDt));
   };
 
   return (
-    <AdminLayout title="New Product">
+    <AdminLayout title="Edit Product">
       <Link to="/product">
         <Button variant="secondary">Back</Button>
       </Link>
@@ -129,6 +145,7 @@ const EditProduct = () => {
               type="switch"
               label="Status"
               onChange={handleOnChange}
+              checked={form.status === "active"}
             />
           </Form.Group>
 
@@ -136,13 +153,26 @@ const EditProduct = () => {
             onChange={handleOnChange}
             name="parentCat"
             required={true}
+            _id={form.parentCat}
           />
 
           {inputs?.map((item, i) => (
             <CustomInput key={i} {...item} onChange={handleOnChange} />
           ))}
 
-          <Form.Group>
+          <div className="py-5 ">
+            {form.images?.map((url) => (
+              <img
+                className="img-thumbnail"
+                key={url}
+                src={process.env.REACT_APP_ROOTSERVER + url?.slice(6)}
+                alt=""
+                width="150px"
+              />
+            ))}
+          </div>
+
+          <Form.Group className="mb-3 mt-3">
             <Form.Control
               type="file"
               name="img"

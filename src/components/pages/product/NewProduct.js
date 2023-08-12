@@ -51,7 +51,7 @@ const NewProduct = () => {
     {
       name: "salesPrice",
       label: "Sales Price",
-      type: "text",
+      type: "number",
       placeholder: "8000",
     },
 
@@ -62,7 +62,7 @@ const NewProduct = () => {
     },
 
     {
-      name: "salesEndtDate",
+      name: "salesEndDate",
       label: "Sales End Date",
       type: "Date",
     },
@@ -91,9 +91,9 @@ const NewProduct = () => {
     });
   };
 
-  const handleOnAttached = (e) => {
-    const { file } = e.target;
-    setImgs(file);
+  const handleImgOnAttached = (e) => {
+    const { files } = e.target;
+    setImgs(files);
   };
 
   const handleOnSubmit = (e) => {
@@ -111,9 +111,7 @@ const NewProduct = () => {
       });
     }
 
-    return;
-
-    dispatch(postNewProductAction(form));
+    dispatch(postNewProductAction(formDt));
   };
 
   return (
@@ -121,7 +119,7 @@ const NewProduct = () => {
       <Link to="/product">
         <Button variant="secondary">Back</Button>
       </Link>
-      <div>
+      <div className="mt-4">
         <Form onSubmit={handleOnSubmit}>
           <Form.Group className="mb-3">
             <Form.Check
@@ -142,14 +140,14 @@ const NewProduct = () => {
             <CustomInput key={i} {...item} onChange={handleOnChange} />
           ))}
 
-          <Form.Group>
+          <Form.Group className="mb-3 mt-3">
             <Form.Control
               type="file"
               name="img"
               multiple
-              onChange={handleOnAttached}
-              required
-            ></Form.Control>
+              onChange={handleImgOnAttached}
+              required={true}
+            />
           </Form.Group>
           <div className="d-grid mt-3 mb-3">
             <Button variant="success" type="submit">

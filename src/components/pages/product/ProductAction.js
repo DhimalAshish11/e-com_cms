@@ -20,7 +20,7 @@ export const postNewProductAction = (data) => async (dispatch) => {
   status === "success" && dispatch(getNewProductAction());
 };
 
-export const getNewProductAction = (data) => async (dispatch) => {
+export const getNewProductAction = () => async (dispatch) => {
   const { status, products } = await getNewProduct();
 
   status === "success" && dispatch(setproducts(products));
