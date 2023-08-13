@@ -17,6 +17,7 @@ import { getCategoryAction } from "./components/categories/CategoryAction";
 import PrivateRoute from "./components/private/PrivateRoute";
 import NewProduct from "./components/pages/product/NewProduct";
 import EditProduct from "./components/pages/product/EditProduct";
+import ResetPassword from "./components/pages/signin-signup/ResetPassword";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function App() {
         <Route path="/" element={<SignIn />} />
 
         <Route path="admin-verification" element={<AdminVerification />} />
+        <Route path="password-reset" element={<ResetPassword />} />
 
         {/*Privaate Route*/}
 

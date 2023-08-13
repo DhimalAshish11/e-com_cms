@@ -215,3 +215,22 @@ export const deleteProduct = (_id) => {
   };
   return axiosProcesor(obj);
 };
+
+export const updateProduct = (data) => {
+  const obj = {
+    method: "put",
+    url: productAPI,
+    obj: data,
+    isPrivate: true,
+  };
+  return axiosProcesor(obj);
+};
+
+export const requestPassOTP = (email) => {
+  const obj = {
+    method: "post",
+    url: adminAPI + "/request-opt",
+    obj: { email },
+  };
+  return axiosProcesor(obj);
+};

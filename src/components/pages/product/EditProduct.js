@@ -3,21 +3,25 @@ import AdminLayout from "../../layout/AdminLayout";
 import { Button, Form } from "react-bootstrap";
 import CustomInput from "../../custom-input/CustomInput";
 import { useDispatch } from "react-redux";
-import { postNewProductAction } from "./ProductAction";
-import { Link, useParams } from "react-router-dom";
+import {
+  deleteProductAction,
+  postNewProductAction,
+  updateProductAction,
+} from "./ProductAction";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import SelectCategory from "../../categories/SelectCategory";
 import { getNewProduct } from "../../../helper/axios";
-const initialState = {
-  status: "inactive",
-};
 
 const EditProduct = () => {
   const { _id } = useParams();
 
-  const [form, setForm] = useState(initialState);
+  const [form, setForm] = useState({});
   const [imgs, setImgs] = useState([]);
 
+  const [imgToDelete, setImgToDelete] = useState([]);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // (async () => {
@@ -40,6 +44,7 @@ const EditProduct = () => {
       type: "text",
       placeholder: "Samsung TV",
       required: true,
+      value: form.name,
     },
 
     {
@@ -48,6 +53,17 @@ const EditProduct = () => {
       type: "text",
       placeholder: "SAM- TV",
       required: true,
+      value: form.sku,
+      disabled: true,
+    },
+
+    {
+      name: "slug",
+      label: "Slug",
+      type: "text",
+
+      value: form.slug,
+      disabled: true,
     },
 
     {
@@ -56,6 +72,7 @@ const EditProduct = () => {
       type: "number",
       placeholder: "quantity",
       required: true,
+      value: form.qty,
     },
 
     {
@@ -64,6 +81,7 @@ const EditProduct = () => {
       type: "number",
       placeholder: "10000",
       required: true,
+      value: form.price,
     },
 
     {
@@ -71,18 +89,21 @@ const EditProduct = () => {
       label: "Sales Price",
       type: "text",
       placeholder: "8000",
+      value: form.salesPrice,
     },
 
     {
       name: "salesStartDate",
       label: "Sales Start Date",
       type: "Date",
+      value: form.salesStartDate,
     },
 
     {
       name: "salesEndDate",
       label: "Sales End Date",
       type: "Date",
+      value: form.salesEndDate,
     },
 
     {
@@ -93,11 +114,16 @@ const EditProduct = () => {
       placeholder: "product description...",
       rows: "10",
       required: true,
+      value: form.description,
     },
   ];
 
   const handleOnChange = (e) => {
     let { checked, name, value } = e.target;
+
+    if (name === "thumbnail" && imgToDelete.includes(value)) {
+      return alert("Deleting image can't be set as thumbnail");
+    }
 
     if (name === "success") {
       value = checked ? "active" : "inactive";
@@ -114,13 +140,21 @@ const EditProduct = () => {
     setImgs(files);
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
+
+    if (!window.confirm("Are you sure you want to update this product")) {
+      return;
+    }
 
     const formDt = new FormData();
 
-    for (let key in form) {
-      formDt.append(key, form[key]);
+    const { sku, slug, __v, createdAt, updatedAt, ...rest } = form;
+
+    rest.images = rest.images.filter((url) => !imgToDelete.includes(url));
+
+    for (let key in rest) {
+      formDt.append(key, rest[key]);
     }
 
     if (imgs.length) {
@@ -129,7 +163,33 @@ const EditProduct = () => {
       });
     }
 
-    dispatch(postNewProductAction(formDt));
+    //removeee: ske, slug, __v, createdAt, updatedAt
+
+    const isUpdated = await dispatch(updateProductAction(formDt));
+
+    isUpdated && getSelectedProduct();
+    setImgToDelete([]);
+  };
+
+  const handleOnDelete = async () => {
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      let isDeleted = await dispatch(deleteProductAction(_id));
+
+      isDeleted && navigate("/product");
+    }
+  };
+
+  const handleOnDeleteSelect = (e) => {
+    const { value, checked } = e.target;
+
+    if (value === form.thumbnail) {
+      return alert(
+        "You can't delete the thumbnail, choose another thumbnail first"
+      );
+    }
+    checked
+      ? setImgToDelete([...imgToDelete, value])
+      : setImgToDelete(imgToDelete.filter((url) => url !== value));
   };
 
   return (
@@ -162,13 +222,35 @@ const EditProduct = () => {
 
           <div className="py-5 ">
             {form.images?.map((url) => (
-              <img
-                className="img-thumbnail"
-                key={url}
-                src={process.env.REACT_APP_ROOTSERVER + url?.slice(6)}
-                alt=""
-                width="150px"
-              />
+              <div>
+                <div>
+                  <input
+                    type="radio"
+                    name="thumbnail"
+                    checked={url === form.thumbnail}
+                    value={url}
+                    onChange={handleOnChange}
+                  />
+                  <label htmlFor="">Thumbnail</label>
+                </div>
+
+                <img
+                  className="img-thumbnail"
+                  key={url}
+                  src={process.env.REACT_APP_ROOTSERVER + url?.slice(6)}
+                  alt=""
+                  width="150px"
+                />
+
+                <div>
+                  <Form.Check
+                    label="Delete"
+                    value={url}
+                    onChange={handleOnDeleteSelect}
+                    checked={imgToDelete.includes(url)}
+                  />
+                </div>
+              </div>
             ))}
           </div>
 
@@ -178,12 +260,16 @@ const EditProduct = () => {
               name="img"
               multiple
               onChange={handleOnAttached}
-              required
             ></Form.Control>
           </Form.Group>
           <div className="d-grid mt-3 mb-3">
             <Button variant="success" type="submit">
-              Add Product
+              Update Product
+            </Button>
+          </div>
+          <div className="d-grid mb-3">
+            <Button variant="danger" onClick={handleOnDelete}>
+              Delete this product
             </Button>
           </div>
         </Form>
