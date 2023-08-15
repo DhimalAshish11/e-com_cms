@@ -4,16 +4,21 @@ import { toast } from "react-toastify";
 import { Alert, Container } from "react-bootstrap";
 import PasswordOTP from "../../admin-signup/PasswordOTP";
 import PasswordReset from "../../admin-signup/PasswordReset";
-import { requestPassOTP } from "../../../helper/axios";
+
+import { requestPassOTP, resetPass } from "../../../helper/axios";
 import Footer from "../../layout/Footer";
 import Header from "../../layout/Header";
+import { useNavigate } from "react-router-dom";
 
 const ResetPassword = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState("otp");
+  const [email, setEmail] = useState("");
 
   const [resp, setResp] = useState({});
 
   const handleOnOtpRequest = async (email) => {
+    setEmail(email);
     if (!email.includes("@") && !email.includes(".")) {
       return toast.error("Invalid email");
     }
@@ -27,9 +32,26 @@ const ResetPassword = () => {
     setForm("reset");
   };
 
+  const processResetPassAPI = async (obj) => {
+    const pending = resetPass({ ...obj, email });
+    toast.promise(pending, {
+      pending: "Please wait...",
+    });
+
+    const { status, message } = await pending;
+    toast[status](message);
+
+    status === "success" && navigate("/");
+  };
+
   const forms = {
     otp: <PasswordOTP handleOnOtpRequest={handleOnOtpRequest} />,
-    reset: <PasswordReset setForm={setForm} />,
+    reset: (
+      <PasswordReset
+        setForm={setForm}
+        processResetPassAPI={processResetPassAPI}
+      />
+    ),
   };
 
   return (
@@ -50,7 +72,7 @@ const ResetPassword = () => {
           {/* rest password form  */}
         </div>
       </main>
-      <Footer />
+      <Footer />;
     </>
   );
 };

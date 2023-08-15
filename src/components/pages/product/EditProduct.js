@@ -3,11 +3,7 @@ import AdminLayout from "../../layout/AdminLayout";
 import { Button, Form } from "react-bootstrap";
 import CustomInput from "../../custom-input/CustomInput";
 import { useDispatch } from "react-redux";
-import {
-  deleteProductAction,
-  postNewProductAction,
-  updateProductAction,
-} from "./ProductAction";
+import { deleteProductAction, updateProductAction } from "./ProductAction";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import SelectCategory from "../../categories/SelectCategory";
 import { getNewProduct } from "../../../helper/axios";
@@ -149,7 +145,7 @@ const EditProduct = () => {
 
     const formDt = new FormData();
 
-    const { sku, slug, __v, createdAt, updatedAt, ...rest } = form;
+    let { sku, slug, __v, createdAt, updatedAt, ...rest } = form;
 
     rest.images = rest.images.filter((url) => !imgToDelete.includes(url));
 
@@ -220,7 +216,7 @@ const EditProduct = () => {
             <CustomInput key={i} {...item} onChange={handleOnChange} />
           ))}
 
-          <div className="py-5 ">
+          <div className="py-5 d-flex justify-content-between ">
             {form.images?.map((url) => (
               <div>
                 <div>

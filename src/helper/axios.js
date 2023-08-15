@@ -234,3 +234,12 @@ export const requestPassOTP = (email) => {
   };
   return axiosProcesor(obj);
 };
+
+export const resetPass = (data) => {
+  const obj = {
+    method: "post",
+    url: adminAPI + "/reset-password",
+    obj: data,
+  };
+  return axiosProcesor(obj);
+};
