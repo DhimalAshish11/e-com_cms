@@ -18,6 +18,7 @@ import PrivateRoute from "./components/private/PrivateRoute";
 import NewProduct from "./components/pages/product/NewProduct";
 import EditProduct from "./components/pages/product/EditProduct";
 import ResetPassword from "./components/pages/signin-signup/ResetPassword";
+import Profile from "./components/pages/profile/Profile";
 
 function App() {
   const dispatch = useDispatch();
@@ -122,7 +123,7 @@ function App() {
           path="profile"
           element={
             <PrivateRoute>
-              <Dashboard />
+              <Profile />
             </PrivateRoute>
           }
         />

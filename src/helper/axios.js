@@ -61,6 +61,24 @@ export const getAdminInfo = () => {
   return axiosProcesor(obj);
 };
 
+export const getAdmin = () => {
+  const obj = {
+    method: "get",
+    url: adminAPI,
+    isPrivate: true,
+  };
+  return axiosProcesor(obj);
+};
+
+export const getAdminTableDisplay = () => {
+  const obj = {
+    method: "get",
+    url: adminAPI + "/display",
+    isPrivate: true,
+  };
+  return axiosProcesor(obj);
+};
+
 //adminapi
 export const postNewAdmin = (data) => {
   const obj = {

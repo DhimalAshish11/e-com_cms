@@ -4,9 +4,12 @@ import {
   getAdminInfo,
   getNewRefreshJWT,
   getNewAccessJWT,
+  getAdmin,
+  getAdminDisplay,
+  getAdminTableDisplay,
 } from "../../helper/axios";
 import { toast } from "react-toastify";
-import { setAdmin } from "./signin-signup/adminSlice";
+import { setAdmin, setAdminDisplay } from "./signin-signup/adminSlice";
 
 export const createNewAdminAction = async (obj) => {
   const pendingResp = postNewAdmin(obj);
@@ -41,6 +44,14 @@ export const getAdminProfileAction = () => async (dispatch) => {
 
   if (status === "success") {
     dispatch(setAdmin(user));
+  }
+};
+
+export const getAdminTable = () => async (dispatch) => {
+  const { status, user } = await getAdminTableDisplay();
+
+  if (status === "success") {
+    dispatch(setAdminDisplay(user));
   }
 };
 

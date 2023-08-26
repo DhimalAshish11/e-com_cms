@@ -81,10 +81,9 @@ const AdminSignup = () => {
     },
   ];
   return (
-    <section className="main">
-      <Form onSubmit={handleOnSubmit} className="m-5 p-5 border shadow-lg">
-        <h1 className="text-center pb-3">Add New Admin</h1>
-        <hr />
+    <div>
+      {" "}
+      <Form onSubmit={handleOnSubmit} className="m-2 p-3 border shadow-lg">
         {inputs.map((item, i) => (
           <CustomInput key={i} {...item} onChange={handleOnChange} />
         ))}
@@ -95,7 +94,7 @@ const AdminSignup = () => {
           </Button>
         </div>
       </Form>
-    </section>
+    </div>
   );
 };
 
