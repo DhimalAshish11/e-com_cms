@@ -98,6 +98,26 @@ export const signInAdmin = (data) => {
   return axiosProcesor(obj);
 };
 
+export const updateAdmin = (data) => {
+  const obj = {
+    method: "put",
+    url: adminAPI,
+    obj: data,
+    isPrivate: true,
+  };
+  return axiosProcesor(obj);
+};
+
+export const updatePassword = (data) => {
+  const obj = {
+    method: "put",
+    url: adminAPI + "/change-password",
+    obj: data,
+    isPrivate: true,
+  };
+  return axiosProcesor(obj);
+};
+
 export const postNewAdminVerificationInfo = (data) => {
   const obj = {
     method: "post",

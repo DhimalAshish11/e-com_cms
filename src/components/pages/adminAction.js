@@ -7,6 +7,8 @@ import {
   getAdmin,
   getAdminDisplay,
   getAdminTableDisplay,
+  updateAdmin,
+  updatePassword,
 } from "../../helper/axios";
 import { toast } from "react-toastify";
 import { setAdmin, setAdminDisplay } from "./signin-signup/adminSlice";
@@ -72,5 +74,37 @@ export const autoLogin = () => async (dispatch) => {
       sessionStorage.setItem("accessJWT", accessJWT);
       dispatch(getAdminProfileAction());
     }
+  }
+};
+
+export const updateAdminAction = (data) => async (dispatch) => {
+  const respPending = updateAdmin(data);
+  toast.promise(respPending, {
+    pending: "please wait....",
+  });
+
+  const { status, message } = await respPending;
+
+  toast[status](message);
+
+  if (status === "success") {
+    //call the api to fetch all the cats and mount in the state
+    dispatch(getAdminProfileAction());
+  }
+};
+
+export const updatePasswordAction = (data) => async (dispatch) => {
+  const respPending = updatePassword(data);
+  toast.promise(respPending, {
+    pending: "please wait....",
+  });
+
+  const { status, message } = await respPending;
+
+  toast[status](message);
+
+  if (status === "success") {
+    //call the api to fetch all the cats and mount in the state
+    dispatch(getAdminProfileAction());
   }
 };

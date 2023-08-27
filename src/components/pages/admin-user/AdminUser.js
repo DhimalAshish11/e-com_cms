@@ -20,7 +20,7 @@ export const AdminUser = () => {
           <Button variant="warning">Add New Admin</Button>
         </Link>
       </div>
-      <div className="admin-table">
+      <div className="admin-table m-5">
         <Table striped bordered hover>
           <thead>
             <tr>
