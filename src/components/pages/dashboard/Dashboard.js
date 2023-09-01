@@ -2,53 +2,84 @@ import React from "react";
 import AdminLayout from "../../layout/AdminLayout";
 import { Button } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import { useSelector } from "react-redux";
+
+import { BiCategory } from "react-icons/bi";
+import { MdProductionQuantityLimits } from "react-icons/md";
+import { AiOutlineUsergroupAdd } from "react-icons/ai";
+import { MdOutlineReviews } from "react-icons/md";
+import DashboardChart from "./DashboardChart";
 
 export const Dashboard = () => {
-  const { admin } = useSelector((state) => state.adminInfo);
-
   return (
     <AdminLayout title="Dashboard">
-      <div className="card d-flex gap-4 p-3 m-5">
-        <Card className="bg-success text-light">
+      <div className="card-container">
+        <Card className="mini-card bg-success text-light">
           <Card.Body>
-            <Card.Title>{admin.fName}</Card.Title>
-            <Card.Text>Welcome to DashBoard </Card.Text>
+            <div className="card-inner">
+              {" "}
+              <Card.Title>Category</Card.Title>
+              <BiCategory className="fs-3" />
+            </div>
+            <Card.Text>
+              {" "}
+              <h3> 30 </h3>
+            </Card.Text>
             <Card.Footer>
               <Button>More Info</Button>
             </Card.Footer>
           </Card.Body>
         </Card>
 
-        <Card className="bg-primary text-light">
+        <Card className="mini-card bg-primary text-light">
           <Card.Body>
-            <Card.Title> uuuuu </Card.Title>
-            <Card.Text>Books Found </Card.Text>
+            <div className="card-inner">
+              <Card.Title> Product </Card.Title>
+              <MdProductionQuantityLimits className="fs-3" />
+            </div>
+            <Card.Text>
+              {" "}
+              <h3>500</h3>{" "}
+            </Card.Text>
             <Card.Footer>
               <Button>More Info</Button>
             </Card.Footer>
           </Card.Body>
         </Card>
 
-        <Card className="bg-danger text-light">
+        <Card className="mini-card bg-danger text-light">
           <Card.Body>
-            <Card.Title>hhhh</Card.Title>
-            <Card.Text>Borrowed Books Found </Card.Text>
+            <div className="card-inner">
+              {" "}
+              <Card.Title>Customer</Card.Title>
+              <AiOutlineUsergroupAdd className="fs-3" />
+            </div>
+            <Card.Text>
+              {" "}
+              <h3>80</h3>{" "}
+            </Card.Text>
             <Card.Footer>
               <Button>More Info</Button>
             </Card.Footer>
           </Card.Body>
         </Card>
-        <Card className="bg-warning text-light">
+        <Card className="mini-card bg-warning text-light">
           <Card.Body>
-            <Card.Title> tyyui </Card.Title>
-            <Card.Text>Reviews Found </Card.Text>
+            <div className="card-inner">
+              <Card.Title> Reviews </Card.Title>
+              <MdOutlineReviews className="fs-3" />
+            </div>
+            <Card.Text>
+              {" "}
+              <h3>200</h3>{" "}
+            </Card.Text>
             <Card.Footer>
               <Button>More Info</Button>
             </Card.Footer>
           </Card.Body>
         </Card>
       </div>
+
+      <DashboardChart />
     </AdminLayout>
   );
 };
